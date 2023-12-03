@@ -4,7 +4,7 @@ from AdventOfCode2023.day_02 import (
     game_dict,
     parse_input,
     possible_games,
-    sum_power_min_colors
+    sum_power_max_colors
 )
 
 PART_I_EX_INPUT = [
@@ -38,5 +38,5 @@ def test_parse_input():
 def test_possible_games():
     assert possible_games(PART_I_EX_INPUT) == 8
 
-def test_sum_power_min_colors():
-    assert sum_power_min_colors(PART_I_EX_INPUT) == 2286
+def test_sum_power_max_colors():
+    assert sum_power_max_colors(PART_I_EX_INPUT) == 2286
