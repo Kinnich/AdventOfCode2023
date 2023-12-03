@@ -5,6 +5,7 @@ from AdventOfCode2023.day_03 import (
     get_symbol_positions,
     find_adjacent,
     sum_parts,
+    sum_gear_ratios,
 )
 
 EX_INPUT = [
@@ -68,3 +69,6 @@ def test_find_adjacent():
 
 def test_sum_parts():
     assert sum_parts(EX_INPUT) == 4361
+
+def test_sum_gear_ratios():
+    assert sum_gear_ratios(EX_INPUT) == 467835

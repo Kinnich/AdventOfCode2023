@@ -48,6 +48,7 @@ def get_part_positions(lines):
     
     return parts
 
+
 def get_symbol_positions(lines):
     symbols = []
     for row, line in enumerate(lines):
@@ -57,6 +58,7 @@ def get_symbol_positions(lines):
             symbols.append(Symbol(row=row, col=col, val=match.group()))
     
     return symbols
+
 
 def find_adjacent(parts: list[Part], symbol: Symbol) -> list[Part]:
     adj = []
@@ -68,7 +70,8 @@ def find_adjacent(parts: list[Part], symbol: Symbol) -> list[Part]:
                 adj.append(part)
     return adj
 
-def sum_parts(lines) -> int:
+
+def sum_parts(lines: list[str]) -> int:
     parts = get_part_positions(lines)
     symbols = get_symbol_positions(lines)
     
@@ -85,10 +88,28 @@ def sum_parts(lines) -> int:
 
 Find the gear ratio of every gear and add them all up.
 """
+def sum_gear_ratios(lines: list[str]) -> int:
+    
+    parts = get_part_positions(lines)
+    symbols = get_symbol_positions(lines)
+
+    gears = []
+    for symbol in symbols:
+        if symbol.val == '*':
+            adj_parts = find_adjacent(parts, symbol)
+            if len(adj_parts) == 2:
+                gear_ratio = adj_parts[0].val * adj_parts[1].val
+                gears.append(gear_ratio)
+    
+    return sum(g for g in gears)
 
 
 if __name__ == "__main__":
     with open('puzzle_input/day_3.txt','r') as f:
         lines = [line.rstrip() for line in f.readlines()] # don't forget to get rid of new line!
+        
         print("Part I result", sum_parts(lines)) 
         # Correct answer = 559667
+
+        print("Part II result", sum_gear_ratios(lines))
+        # Correct answer = 86841457
