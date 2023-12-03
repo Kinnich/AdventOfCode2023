@@ -1,9 +1,10 @@
 from AdventOfCode2023.day_02 import (
     Game,
     find_color_max,
-    parse_line,
+    game_dict,
     parse_input,
-    possible_games
+    possible_games,
+    sum_power_min_colors
 )
 
 PART_I_EX_INPUT = [
@@ -20,9 +21,9 @@ def test_find_color_max():
     assert find_color_max("green", line) == 0
 
 
-def test_parse_line():
+def test_game_dict():
     line = "Game 1: 3 blue, 4 red; 1 red, 6 blue"
-    assert parse_line(line) == {'blue': 6, 'green': 0, 'red': 4}
+    assert game_dict(line) == {'blue': 6, 'green': 0, 'red': 4}
 
 
 def test_parse_input():
@@ -36,3 +37,6 @@ def test_parse_input():
 
 def test_possible_games():
     assert possible_games(PART_I_EX_INPUT) == 8
+
+def test_sum_power_min_colors():
+    assert sum_power_min_colors(PART_I_EX_INPUT) == 2286
