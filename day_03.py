@@ -21,7 +21,6 @@ Two numbers are not part numbers because they are not adjacent to a symbol:
 114 (top right) and 58 (middle right). 
 Every other number is adjacent to a symbol and their sum is 4361.
 """
-# need the position of the numbers and the position of the symbols
 import re
 from dataclasses import dataclass
 
