@@ -104,7 +104,7 @@ def sum_gear_ratios(lines: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    with open('puzzle_input/day_3.txt','r') as f:
+    with open('puzzle_input/day_03.txt','r') as f:
         lines = [line.rstrip() for line in f.readlines()] # don't forget to get rid of new line!
         
         print("Part I result", sum_parts(lines)) 
