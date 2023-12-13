@@ -14,12 +14,28 @@ Seed number 13 corresponds to soil number 13.
 """
 import re
 
+
 def map_to_destination(seed:int, maps:list[tuple]):
-    # TODO: sort maps by source, then start search at closest to seed num
-    for m in maps:
-        dest, source, r = m
-        if seed in range(source, source + r):
-            return (seed - source) + dest
+    maps = sorted(maps, key=lambda x: x[1])
+    for i in range(len(maps)):
+        if seed >= maps[i][1]: 
+            if i == len(maps) - 1: # last map
+                # check the map
+                dest, source, r = maps[i]
+                if seed in range(source, source + r):
+                    return (seed - source) + dest
+                # not in mapping, return the seed
+                return seed
+            
+            if seed < maps[i+1][1]: # greater than this, not as big as next
+                # check it
+                dest, source, r = maps[i]
+                if seed in range(source, source + r):
+                    return (seed - source) + dest
+                return seed
+            # keep looking for the right spot
+            continue
+            
     return seed
 
 
@@ -61,14 +77,30 @@ def parse_almanac(lines: list[str]):
             continue
     return seeds, almanac
 
+# PART II expands the seed list
+def expand_seed_list(seeds):
+    # seed list is actually pairs of numbers and their ranges
+    # so SEEDS = [79, 14, 55, 13]
+    # is seeds numbered 79 through 79+14 and 55 through 55+13
+    # all the seed need to be mapped to locations to find the closest 
+    seed_list = []
+    assert len(seed_list) % 2 == 0
+    for i in range(0, len(seeds), 2):
+        seed_start = seeds[i]
+        seed_range = seeds[i + 1]
+        seed_end = seed_start + seed_range
+        seed_list.extend([x for x in range(seed_start, seed_end)])
+
+    return seed_list
+
 if __name__ == "__main__":
     with open('puzzle_input/day_05.txt', 'r') as f:
         lines = f.readlines()
     
     seeds, almanac = parse_almanac(lines)
  
-    print(get_closest_location(seeds, almanac))
+    print(get_closest_location(seeds, almanac)) # 388071289
 
-#     print(almanac)
-#     print(len(almanac))
-#     print([len(a) for a in almanac])
+#     expanded_seeds = expand_seed_list(seeds)
+#     get_closest_location(expanded_seeds, almanac)
+#     print("PART II result", get_closest_location(expanded_seeds, almanac))
