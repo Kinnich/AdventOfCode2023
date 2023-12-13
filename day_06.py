@@ -18,7 +18,7 @@ In the above example the answer is 288 (4 * 8 * 9)
 import re
 
 
-def calculate_win_options(time, record):
+def calculate_win_options(time: int, record: int) -> int:
     wins = 0
     for t in range(1, time):
         distance = (time - t) * t
@@ -26,7 +26,7 @@ def calculate_win_options(time, record):
             wins += 1
     return wins
 
-def win_margin(times: list, records: list):
+def win_margin(times: list[int], records: list[int]) -> int:
     win_options = 1
     for time, record in zip(times, records):
         win_options *= calculate_win_options(time, record)
@@ -39,5 +39,10 @@ if __name__ == '__main__':
     
     times = [int(x) for x in re.findall('[0-9]+',lines[0])]
     records = [int(x) for x in re.findall('[0-9]+',lines[1])]
+    
     print(times, records)
     print(win_margin(times, records))
+
+    # Part II - input is one number in each line so just enter by hand
+    print(calculate_win_options(52947594, 426137412791216))
+    # Correct answer -> 33149631
