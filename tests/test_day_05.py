@@ -5,12 +5,13 @@ from AdventOfCode2023.day_05 import (
     get_location,
     get_closest_location,
     parse_almanac,
+    expand_seed_list,
 )
 
 @pytest.mark.parametrize(
     'seed, exp_result',
     [
-        (0, 0),
+        (0, 2),
         (50, 52),
         (14, 14),
         (55, 57),
@@ -21,7 +22,8 @@ from AdventOfCode2023.day_05 import (
 def test_map_to_destination(seed, exp_result):
     maps = [
         (50, 98, 2),
-        (52, 50, 48)
+        (52, 50, 48),
+        (2, 0, 1),
     ]
     result = map_to_destination(seed, maps)
     assert result == exp_result
@@ -79,3 +81,11 @@ def test_parse_almanac():
     assert seeds == SEEDS
     assert len(almanac) == 7
     assert [len(x) for x in almanac] == [2, 3, 4, 2, 3, 2, 2]
+
+
+def test_expand_seed_list():
+    assert len(expand_seed_list(SEEDS)) == 27
+
+def test_part_two():
+    expanded_seeds = expand_seed_list(SEEDS)
+    assert get_closest_location(expanded_seeds, ALMANAC) == 46
